@@ -49,7 +49,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 30%;
+            height: 25%;
             background-color: #8B6B4D;
             padding: 10px 0;
             display: flex;
@@ -60,12 +60,14 @@
 
         .stations-bar {
             width: 95%;
-            margin: 35px auto 0;
+            margin: 35px auto 5px;
             display: flex;
             justify-content: center;
             align-items: flex-end;
             gap: 1%;
             height: 65%;
+            position: relative;
+            top: -4px;
         }
 
         .stations-container {
@@ -108,7 +110,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            bottom: 65px;
+            bottom: 35px;
         }
 
         .bottom-buttons {
@@ -116,17 +118,29 @@
             justify-content: space-around;
             align-items: center;
             width: 95%;
-            margin: 10px auto 0;
+            margin: 5px auto 0;
             height: 25%;
+            position: relative;
+            top: -15px;
         }
 
         .bottom-button {
-            width: 17%;
+            width: 14%;
             aspect-ratio: 1;
-            background: #2A2937;
+            background-color: #2A2937;
             border-radius: 8px;
             border: 1px solid #3A394A;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+
+        .bottom-button:nth-child(1) { background-image: url('1.png'); }
+        .bottom-button:nth-child(2) { background-image: url('2.png'); }
+        .bottom-button:nth-child(3) { background-image: url('3.png'); }
+        .bottom-button:nth-child(4) { background-image: url('4.png'); }
+        .bottom-button:nth-child(5) { background-image: url('5.png'); }
+        .bottom-button:nth-child(6) { background-image: url('6.png'); }
 
         .progress-bar {
             width: 85%;
@@ -268,6 +282,7 @@
             </div>
 
             <div class="bottom-buttons">
+                <div class="bottom-button"></div>
                 <div class="bottom-button"></div>
                 <div class="bottom-button"></div>
                 <div class="bottom-button"></div>
