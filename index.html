@@ -237,10 +237,6 @@
             .bottom-section {
                 height: 25%;
                 padding-top: 0;
-                justify-content: flex-end;
-            }
-            .stations-bar {
-                margin: 0 auto 25px;
             }
 
             .golden-statue {
@@ -248,14 +244,13 @@
                 height: 99px;
                 bottom: 8px;
             }
+
             .stations-bar {
                 margin: 0 auto 20px;
-                bottom: 4px;
             }
 
             .bottom-buttons {
                 margin-bottom: 10px;
-                margin-bottom: 15px;
             }
         }
     </style>
@@ -351,7 +346,7 @@
                 }
 
                 this.progress += (50 / (this.interval * 1000)) * 100;
-
+                
                 if (this.progress >= 100) {
                     this.progress = 0;
                     this.currentStorage++;
@@ -375,15 +370,15 @@
             collect() {
                 if (this.currentStorage === 0) return;
                 const amount = this.currentStorage;
-
+                
                 const floatingText = document.createElement('div');
                 floatingText.textContent = `+${amount} ${this.resourceName}`;
                 floatingText.className = 'floating-text';
-
+                
                 // Position the text at the resource icon's position
                 floatingText.style.left = '50%';
                 floatingText.style.top = '-45px';  // Same as resource icon's top position
-
+                
                 this.element.appendChild(floatingText);
                 setTimeout(() => floatingText.remove(), 1500);
 
@@ -403,3 +398,4 @@
         ];
     </script>
 </body>
+</html>
