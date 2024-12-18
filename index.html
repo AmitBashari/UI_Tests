@@ -87,7 +87,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
         }
 
         #station1 { background: url('station-cookie.png') center/contain no-repeat; }
@@ -96,17 +96,19 @@
         #station4 { background: url('station-hammer.png') center/contain no-repeat; }
 
         .golden-statue {
-            width: 40px;
-            height: 40px;
+            width: 130px;
+            height: 130px;
             background: url('golden-statue.png') center/contain no-repeat;
             background-color: transparent;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
             margin: 0 5px;
-            align-self: center;
+            align-self: flex-end;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            bottom: 65px;
         }
 
         .bottom-buttons {
@@ -130,8 +132,10 @@
             width: 85%;
             height: 3px;
             background: rgba(0,0,0,0.4);
-            margin-top: auto;
-            margin-bottom: 15px;
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
             border-radius: 2px;
             overflow: hidden;
         }
@@ -350,10 +354,10 @@
 
         // Initialize stations
         const stations = [
-            new Station('station1', 10, 2, 'cookies'),
-            new Station('station2', 20, 10, 'scrolls'),
-            new Station('station3', 40, 10, 'crystals'),
-            new Station('station4', 60, 10, 'hammers')
+            new Station('station1', 5, 2, 'cookies'),
+            new Station('station2', 10, 10, 'scrolls'),
+            new Station('station3', 20, 10, 'crystals'),
+            new Station('station4', 30, 10, 'hammers')
         ];
     </script>
 </body>
