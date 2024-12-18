@@ -232,7 +232,8 @@
             z-index: -1;
         }
 
-        @media (max-width: 480px) {
+        @media screen and (max-width: 480px), 
+               screen and (max-height: 700px) and (orientation: portrait) {
             .bottom-section {
                 height: 30%;
                 justify-content: flex-end;
