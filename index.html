@@ -97,8 +97,8 @@
         #station4 { background: url('station-hammer.png') center/contain no-repeat; }
 
         .golden-statue {
-            width: 140px;
-            height: 140px;
+            width: 126px;
+            height: 126px;
             background: url('golden-statue.png') center/contain no-repeat;
             background-color: transparent;
             border-radius: 8px;
@@ -109,7 +109,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            bottom: 35px;
+            bottom: 15px;
         }
 
         .bottom-buttons {
@@ -235,34 +235,22 @@
         @media screen and (max-width: 480px), 
                screen and (max-height: 700px) and (orientation: portrait) {
             .bottom-section {
-                height: 28%;
-                justify-content: flex-end;
-            }
-
-            .stations-bar {
-                height: 55%;
-                margin: 0 auto 12px;
-            }
-
-            .station {
-                height: 70%;
+                height: 25%;
+                padding-top: 0;
             }
 
             .golden-statue {
-                width: 86px;
-                height: 86px;
-                bottom: 15px;
+                width: 99px;
+                height: 99px;
+                bottom: 8px;
             }
 
-            .resource-icon {
-                width: 40px;
-                height: 40px;
-                top: -35px;
+            .stations-bar {
+                margin: 0 auto 20px;
             }
 
             .bottom-buttons {
-                top: 0;
-                margin-bottom: 6px;
+                margin-bottom: 10px;
             }
         }
     </style>
