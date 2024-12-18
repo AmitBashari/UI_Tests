@@ -25,7 +25,9 @@
             height: 100%;
             max-width: 450px;
             aspect-ratio: 9/16;
-            background: #4c8c3f;
+            background: url('BG.png');
+            background-size: cover;
+            background-position: center;
         }
 
         @media (min-aspect-ratio: 9/16) {
@@ -79,20 +81,25 @@
             width: 100%;
             height: 80%;
             position: relative;
-            background: #2A2937;
-            border-radius: 8px;
-            border: 1px solid #3A394A;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: none;
+            border: none;
+            box-shadow: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
+        #station1 { background: url('station-cookie.png') center/contain no-repeat; }
+        #station2 { background: url('station-scroll.png') center/contain no-repeat; }
+        #station3 { background: url('station-crystal.png') center/contain no-repeat; }
+        #station4 { background: url('station-hammer.png') center/contain no-repeat; }
+
         .golden-statue {
             width: 40px;
             height: 40px;
-            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            background: url('golden-statue.png') center/contain no-repeat;
+            background-color: transparent;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
             margin: 0 5px;
@@ -141,17 +148,31 @@
             position: absolute;
             color: white;
             font-size: 14px;
-            animation: float-up 1s forwards;
             pointer-events: none;
+            animation: float-up 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transform: translateX(-50%);
+            white-space: nowrap;
         }
 
         @keyframes float-up {
             0% {
-                transform: translateY(0);
+                transform: translateX(-50%) translateY(0) rotate(0deg);
                 opacity: 1;
             }
+            25% {
+                transform: translateX(-15px) translateY(-15px) rotate(-2deg);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateX(-5px) translateY(-30px) rotate(1deg);
+                opacity: 0.8;
+            }
+            75% {
+                transform: translateX(-10px) translateY(-45px) rotate(-1deg);
+                opacity: 0.6;
+            }
             100% {
-                transform: translateY(-20px);
+                transform: translateX(-8px) translateY(-60px) rotate(0deg);
                 opacity: 0;
             }
         }
@@ -163,16 +184,34 @@
             top: -45px;
             left: 50%;
             transform: translateX(-50%);
-            background: #999;
             border-radius: 50%;
             display: none;
             z-index: 1;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .resource-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .resource-icon.full {
-            background: #FFD700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            position: absolute;
+        }
+
+        .resource-icon.full::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: inherit;
+            background: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            z-index: -1;
         }
     </style>
 </head>
@@ -183,15 +222,17 @@
                 <div class="stations-container left">
                     <!-- First two stations -->
                     <div class="station" id="station1">
-                        <div class="resource-icon"></div>
-                        <div class="station-icon"></div>
+                        <div class="resource-icon">
+                            <img src="resource-cookie.png" alt="Cookie">
+                        </div>
                         <div class="progress-bar">
                             <div class="progress-bar-fill"></div>
                         </div>
                     </div>
                     <div class="station" id="station2">
-                        <div class="resource-icon"></div>
-                        <div class="station-icon"></div>
+                        <div class="resource-icon">
+                            <img src="resource-scroll.png" alt="Scroll">
+                        </div>
                         <div class="progress-bar">
                             <div class="progress-bar-fill"></div>
                         </div>
@@ -204,15 +245,17 @@
                 <div class="stations-container right">
                     <!-- Last two stations -->
                     <div class="station" id="station3">
-                        <div class="resource-icon"></div>
-                        <div class="station-icon"></div>
+                        <div class="resource-icon">
+                            <img src="resource-crystal.png" alt="Crystal">
+                        </div>
                         <div class="progress-bar">
                             <div class="progress-bar-fill"></div>
                         </div>
                     </div>
                     <div class="station" id="station4">
-                        <div class="resource-icon"></div>
-                        <div class="station-icon"></div>
+                        <div class="resource-icon">
+                            <img src="resource-hammer.png" alt="Hammer">
+                        </div>
                         <div class="progress-bar">
                             <div class="progress-bar-fill"></div>
                         </div>
@@ -274,10 +317,12 @@
 
             updateResourceIcon() {
                 if (this.currentStorage > 0) {
-                    this.resourceIcon.style.display = 'block';
+                    this.resourceIcon.style.display = 'flex';
                     if (this.currentStorage >= this.maxStorage) {
                         this.resourceIcon.classList.add('full');
                     }
+                } else {
+                    this.resourceIcon.style.display = 'none';
                 }
             }
 
@@ -285,12 +330,16 @@
                 if (this.currentStorage === 0) return;
                 const amount = this.currentStorage;
                 
-                // Update floating text to use resourceName
                 const floatingText = document.createElement('div');
                 floatingText.textContent = `+${amount} ${this.resourceName}`;
                 floatingText.className = 'floating-text';
+                
+                // Position the text at the resource icon's position
+                floatingText.style.left = '50%';
+                floatingText.style.top = '-45px';  // Same as resource icon's top position
+                
                 this.element.appendChild(floatingText);
-                setTimeout(() => floatingText.remove(), 1000);
+                setTimeout(() => floatingText.remove(), 1500);
 
                 // Reset station
                 this.currentStorage = 0;
