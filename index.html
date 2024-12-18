@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+
+        #game-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            max-width: 450px;
+            aspect-ratio: 9/16;
+            background: #4c8c3f;
+        }
+
+        @media (min-aspect-ratio: 9/16) {
+            #game-container {
+                height: 100vh;
+                width: auto;
+            }
+        }
+
+        @media (max-aspect-ratio: 9/16) {
+            #game-container {
+                width: 100vw;
+                height: auto;
+            }
+        }
+
+        .bottom-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background-color: #8B6B4D;
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stations-bar {
+            width: 95%;
+            margin: 35px auto 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 1%;
+            height: 65%;
+        }
+
+        .stations-container {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            flex: 1;
+        }
+
+        .station {
+            width: 100%;
+            height: 80%;
+            position: relative;
+            background: #2A2937;
+            border-radius: 8px;
+            border: 1px solid #3A394A;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .golden-statue {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            margin: 0 5px;
+            align-self: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bottom-buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 95%;
+            margin: 10px auto 0;
+            height: 25%;
+        }
+
+        .bottom-button {
+            width: 17%;
+            aspect-ratio: 1;
+            background: #2A2937;
+            border-radius: 8px;
+            border: 1px solid #3A394A;
+        }
+
+        .progress-bar {
+            width: 85%;
+            height: 3px;
+            background: rgba(0,0,0,0.4);
+            margin-top: auto;
+            margin-bottom: 15px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: #00E5FF;
+            box-shadow: 0 0 4px rgba(0, 229, 255, 0.5);
+            transition: width 0.1s linear;
+        }
+
+        .floating-text {
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            animation: float-up 1s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+        }
+
+        .resource-icon {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #999;
+            border-radius: 50%;
+            display: none;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .resource-icon.full {
+            background: #FFD700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div class="bottom-section">
+            <div class="stations-bar">
+                <div class="stations-container left">
+                    <!-- First two stations -->
+                    <div class="station" id="station1">
+                        <div class="resource-icon"></div>
+                        <div class="station-icon"></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                    <div class="station" id="station2">
+                        <div class="resource-icon"></div>
+                        <div class="station-icon"></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center statue -->
+                <div class="golden-statue"></div>
+
+                <div class="stations-container right">
+                    <!-- Last two stations -->
+                    <div class="station" id="station3">
+                        <div class="resource-icon"></div>
+                        <div class="station-icon"></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                    <div class="station" id="station4">
+                        <div class="resource-icon"></div>
+                        <div class="station-icon"></div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-buttons">
+                <div class="bottom-button"></div>
+                <div class="bottom-button"></div>
+                <div class="bottom-button"></div>
+                <div class="bottom-button"></div>
+                <div class="bottom-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class Station {
+            constructor(id, interval, maxStorage=10, resourceName='resources') {
+                this.id = id;
+                this.interval = interval;
+                this.maxStorage = maxStorage;
+                this.resourceName = resourceName;
+                this.currentStorage = 0;
+                this.progress = 0;
+                this.element = document.getElementById(id);
+                this.progressBar = this.element.querySelector('.progress-bar-fill');
+                this.resourceIcon = this.element.querySelector('.resource-icon');
+                this.timer = null;
+                this.start();
+
+                // Add click handler
+                this.resourceIcon.addEventListener('click', () => this.collect());
+
+            }
+
+            start() {
+                if (this.timer) return;
+                this.timer = setInterval(() => this.tick(), 50);
+            }
+
+            tick() {
+                if (this.currentStorage >= this.maxStorage) {
+                    this.progressBar.style.width = '0%';
+                    return;
+                }
+
+                this.progress += (50 / (this.interval * 1000)) * 100;
+                
+                if (this.progress >= 100) {
+                    this.progress = 0;
+                    this.currentStorage++;
+                    this.updateResourceIcon();
+                }
+
+                this.progressBar.style.width = `${this.progress}%`;
+            }
+
+            updateResourceIcon() {
+                if (this.currentStorage > 0) {
+                    this.resourceIcon.style.display = 'block';
+                    if (this.currentStorage >= this.maxStorage) {
+                        this.resourceIcon.classList.add('full');
+                    }
+                }
+            }
+
+            collect() {
+                if (this.currentStorage === 0) return;
+                const amount = this.currentStorage;
+                
+                // Update floating text to use resourceName
+                const floatingText = document.createElement('div');
+                floatingText.textContent = `+${amount} ${this.resourceName}`;
+                floatingText.className = 'floating-text';
+                this.element.appendChild(floatingText);
+                setTimeout(() => floatingText.remove(), 1000);
+
+                // Reset station
+                this.currentStorage = 0;
+                this.resourceIcon.style.display = 'none';
+                this.resourceIcon.classList.remove('full');
+            }
+        }
+
+        // Initialize stations
+        const stations = [
+            new Station('station1', 10, 2, 'cookies'),
+            new Station('station2', 20, 10, 'scrolls'),
+            new Station('station3', 40, 10, 'crystals'),
+            new Station('station4', 60, 10, 'hammers')
+        ];
+    </script>
+</body>
+</html>
