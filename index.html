@@ -236,23 +236,34 @@
                screen and (max-height: 700px) and (orientation: portrait) {
             .bottom-section {
                 height: 25%;
-                padding-top: 0;
-                padding-bottom: 0;
+                padding: 0;
+                position: relative;
             }
 
             .stations-bar {
-                margin: 0 auto 85px;
+                position: absolute;
+                bottom: -60px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 95%;
             }
 
             .golden-statue {
                 width: 99px;
                 height: 99px;
-                bottom: -25px;
+                position: absolute;
+                bottom: -80px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 2;
             }
 
             .bottom-buttons {
-                margin-bottom: 65px;
-                position: relative;
+                position: absolute;
+                bottom: -100px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 95%;
                 z-index: 1;
             }
         }
